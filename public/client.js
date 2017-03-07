@@ -4,9 +4,9 @@ function checkStorage() {
      }
  }
 
- function populateStorage($input) {
-   prefName = $input.prop('name');
-   prefVal = $input.val();
+function populateStorage($input) {
+  var prefName = $input.prop('name'),
+      prefVal = $input.val();
    
    localStorage.setItem(prefName, prefVal);
 
@@ -17,6 +17,15 @@ $(function() {
 
   $('#toggle-form').submit(e => {
     populateStorage($('input:checked'));
+  });
+
+  $('#name-form').submit(e => {
+    e.preventDefault();
+    var $outputSection = $('#output'),
+        $nameField = $('#name-field'),
+        $nameNode = $('<p>', {text: $nameField.val()})
+
+        $outputSection.append($nameNode);
   });
 
 });
