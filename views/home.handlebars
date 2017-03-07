@@ -1,17 +1,59 @@
-  <!DOCTYPE html>
-<html>
-  <head>
-    <title></title>
-    <meta name="description" content="">
-    <link id="favicon" rel="icon" href="" type="image/x-icon">
-    <meta charset="utf-8">
-    <link rel="stylesheet" type="text/css" href="//cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css">
-    <link rel="stylesheet" href="/style.css">
-  </head>
-  <body>
-    <h1>Hello, world</h1>
+<!DOCTYPE html>
+<html lang="en">
 
-    <script src="//code.jquery.com/jquery-3.1.1.min.js" integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=" crossorigin="anonymous"></script>
-    <script src="/client.js"></script>
-  </body>
+<head>
+  <title></title>
+  <meta name="description" content="">
+  <meta charset="utf-8">
+  {{!--
+    Comment this back in when mobile-friendly design is implemented.
+    Until then, it's actuallty detrimental to UX.
+
+    <meta name="viewport" content="width=device-width">
+  --}}
+  {{!--<link id="favicon" rel="icon" href="" type="image/x-icon">--}}  
+  <link rel="stylesheet" type="text/css" href="//cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css">
+  <link rel="stylesheet" href="/style.css">
+</head>
+
+<body>
+  <header role="banner">
+    <h1>Progressive form</h1>
+    <form action="/toggle-js" method="POST">
+      <fieldset>
+        <legend>Enable JavaScript?</legend>
+        <input type="radio" name="toggle" value="1" id="toggle-on">
+        <label for="toggle-on">Yes</label>
+        <input type="radio" name="toggle" value="0" id="toggle-off">
+        <label for="toggle-off">No</label>
+      </fieldset>
+      <button type="submit">Submit</button>
+    </form>
+  </header>
+  <main role="main">
+    <section id="input">
+      <form action="/print-name" method="POST">
+        <fieldset>
+          <legend>Enter your name</legend>
+          <label for="name-field">Name: </label>
+          <input type="text" name="name" placeholder="John, Jim" id="name-field" required>
+        </fieldset>
+        <button type="submit">Submit</button>
+      </form>
+    </section>
+    <section id="output">
+      {{!--if a name was submitted, show it--}}
+      {{#if name}}
+      <p>You submitted: {{{name}}}</p>
+      {{/if}}
+    </section>
+  </main>
+  {{!--if user requests our JS, write it here--}}
+  {{#if jsEnabled}}
+  <h3>Js is on!</h3>
+  <script src="//code.jquery.com/jquery-3.1.1.min.js" integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=" crossorigin="anonymous"></script>
+  <script src="/client.js"></script>
+  {{/if}}
+</body>
+
 </html>
