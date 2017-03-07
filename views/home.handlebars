@@ -19,7 +19,7 @@
 <body>
   <header role="banner">
     <h1>Progressive form</h1>
-    <form action="/toggle-js" method="POST">
+    <form action="/toggle-js" method="POST" id="toggle-form">
       <fieldset>
         <legend>Enable JavaScript?</legend>
         <input type="radio" name="js-enabled" value="0" id="toggle-off"  {{#unless jsEnabled}}checked{{/unless}}>
@@ -33,7 +33,7 @@
   </header>
   <main role="main">
     <section id="input">
-      <form action="/print-name" method="POST">
+      <form action="/print-name" method="POST" id="name-form">
         <fieldset>
           <legend>Enter your name</legend>
           <label for="name-field">Name: </label>
