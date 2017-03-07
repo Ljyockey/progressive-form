@@ -1,0 +1,25 @@
+{
+  "name": "progressive-form",
+  "version": "0.0.1",
+  "description": "",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "body-parser": "^1.17.1",
+    "express": "^4.15.0",
+    "express-handlebars": "^3.0.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": ""
+  },
+  "keywords": [
+    "thinkful",
+    "node",
+    "express",
+    "progressive enhabcement"
+  ],
+  "license": "MIT"
+}
