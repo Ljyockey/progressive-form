@@ -1,5 +1,5 @@
 function checkStorage() {
-     if (!localStorage.getItem('js-enabled')) {
+     if (!localStorage.getItem('jsEnabled')) {
          populateStorage();
      } else {
          updateView();
@@ -19,27 +19,7 @@ function checkStorage() {
  }
 
  function updateView() {
-     var contrast = localStorage.getItem('contrast');
-     var userFont = localStorage.getItem('userFont');
-     
-     switch (contrast) {
-         case "high":
-             $('.contrast-control[value="high"]').prop('checked', true);
-             $('body').addClass('high-contrast');
-             break;
-         default:
-             $('.contrast-control[value="standard"]').prop('checked', true);
-             $('body').removeClass('high-contrast');
-     }
-     switch (userFont) {
-         case "dyslexiaFriendly":
-             $('.font-control[value="dyslexiaFriendly"]').prop('checked', true);
-             $('body').addClass('dyslexia-friendly');
-             break;
-         default:
-             $('.font-control[value="standard"]').prop('checked', true);
-             $('body').removeClass('dyslexia-friendly');
-     }
+   
  }
 
 $(function() {
