@@ -1,28 +1,22 @@
 function checkStorage() {
-     if (!localStorage.getItem('jsEnabled')) {
-         populateStorage();
-     } else {
-         updateView();
+     if (!localStorage.getItem('js-enabled')) {
+       populateStorage($('input:checked'));
      }
  }
 
- function populateStorage(e) {
-     var prefName, prefVal;
-     // if there is an event from the view
-     if (e) {
-         prefName = $(e.target).attr('name');
-         prefVal = $(e.target).val();
-         //set the appropriate storage prop with data from the view
-         localStorage.setItem(prefName, prefVal);
-     }
-     updateView();
- }
-
- function updateView() {
+ function populateStorage($input) {
+   prefName = $input.prop('name');
+   prefVal = $input.val();
    
+   localStorage.setItem(prefName, prefVal);
+
  }
 
 $(function() {
+  checkStorage();
 
-  // TODO: use LocalStorage to make the user's decision to enable ior disable JS persist.
+  $('#toggle-form').submit(e => {
+    populateStorage($('input:checked'));
+  });
+
 });
