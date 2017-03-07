@@ -60,7 +60,7 @@ router.post('/toggle-js', (req, res) => {
   and assign that boolean to the jsEnabled prop of the app.locals object
   that is built into Express.
   */
-  app.locals.jsEnabled = (req.body.toggle == true);
+  app.locals.jsEnabled = (req.body['js-enabled'] == true);
   res.redirect(302, '/?js-enabled=' + app.locals.jsEnabled)
 });
 
