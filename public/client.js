@@ -52,7 +52,5 @@ $(function() {
       $outputSection.append($nameNode);
       $nameField.val('');
     });
-
   });
-
 });
