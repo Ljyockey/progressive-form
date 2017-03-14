@@ -38,9 +38,9 @@ $(function() {
     /** Append submitted text to the DOM - this is temporary
      * to illusttate that JS is on, and will be replaced
      * with AJAX calls. */
-    var $nameNode = $('<p>', {text: $nameField.val()})
+    var $nameNode = $('<p>', {text: $nameField.val()});
     $outputSection.append($nameNode);
-    $nameField.val('')
+    $nameField.val('');
   });
 
 });
