@@ -24,38 +24,26 @@ const router = express.Router();
 
 router.get('/', (req, res) => {
   
-   /** Set options on Express's res.locals object, which lets us add data
-    * to a response:
+   /** Set options on Express's app.locals object, which lets us carry data
+    * in the server app. This will be our `database`, for lack of a real one.
     *
-    * If the name form was sent, the name prop will be set to that name
+    * If the name form was sent, the app.locals.name prop will be set to that name
     * and displayed in the view; if not, it will be undefined,
     * and our template will ignore it.
-
     * If the form for enabling JS was sent, app.locals.jsEnabled 
     * will be true and script tags will be added to the DOM.
-    * @example
-    * // renders 'You submitted "Wizard Ben"` and enables JavaScript
-    * res.locals = {
-    *   name: 'Wizard Ben',
-    *   jsEnabled: true
-    * }
     */
-  res.locals = {
-    name: req.query.name ? req.query.name : undefined,
-    jsEnabled: app.locals.jsEnabled
-  }
 
-  /** Pass the locals object into the render function
-   * to expose variables to our template.
-   */
-
-    res.render('home', res.locals); 
+    res.render('home', app.locals); 
 });
 
 router.post('/print-name', (req, res) => {
 
-  /* Send user's name as query string so it can be printed on redirect */
-  res.redirect(302, '/?name=' + req.body.name);
+  /** Send user's name as query string just to illustrate 
+   * *that stuff has happened on the server 
+   */
+  app.locals.name = req.body.name;
+  res.redirect(301, '/?name=' + app.locals.name);
 });
 
 router.post('/toggle-js', (req, res) => {
@@ -72,7 +60,7 @@ router.post('/toggle-js', (req, res) => {
    * can do something with it.
    */
   app.locals.jsEnabled = (req.body['js-enabled'] == true);
-  res.redirect(302, '/?js-enabled=' + app.locals.jsEnabled)
+  res.redirect(301, '/?js-enabled=' + app.locals.jsEnabled)
 });
 
 /* handle navigation to nonexistant routes */
