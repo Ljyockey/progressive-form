@@ -30,8 +30,8 @@ $(function() {
   $nameForm.submit(e => {
     e.preventDefault();
 
-    var url = $nameForm.prop('action');
-    var formData = $nameForm.serializeArray();
+    var url = $(e.target).prop('action');
+    var formData = $(e.target).serializeArray();
 
     $.post(url, formData).done(function(data){
       var $nameNode = $('<p>', {text: data});
