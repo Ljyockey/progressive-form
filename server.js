@@ -34,9 +34,9 @@ router.get('/', (req, res) => {
     * will be true and script tags will be added to the DOM.
     */    
 
-    app.locals.jsEnabled = req.query.jsEnabled ? 
-      req.query.jsEnabled == true : 
-      app.locals.jsEnabled;
+   if (!app.locals.jsEnabled && req.query['js-enabled']) {
+     app.locals.jsEnabled = req.query['js-enabled'] == true;
+   }
 
     res.render('home', app.locals); 
 });
