@@ -52,7 +52,7 @@ router.post('/print-name', (req, res) => {
   if (req.xhr) {
     res.status(200).send(app.locals.name);
   } else {
-    res.redirect(301, '/?name=' + app.locals.name);
+    res.status(301).redirect('/?name=' + app.locals.name);
   }
 });
 
@@ -70,7 +70,7 @@ router.post('/toggle-js', (req, res) => {
    * done some navigating server-side.
    */
   app.locals.jsEnabled = (req.body['js-enabled']==true);  
-  res.redirect(301, '/?js-enabled=' + req.body['js-enabled']);
+  res.status(301).redirect('/?js-enabled=' + req.body['js-enabled']);
 });
 
 /* Handle navigation to nonexistant routes */
