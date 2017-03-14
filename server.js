@@ -32,7 +32,11 @@ router.get('/', (req, res) => {
     * and our template will ignore it.
     * If the form for enabling JS was sent, app.locals.jsEnabled 
     * will be true and script tags will be added to the DOM.
-    */
+    */    
+
+    app.locals.jsEnabled = req.query.jsEnabled ? 
+      req.query.jsEnabled == true : 
+      app.locals.jsEnabled;
 
     res.render('home', app.locals); 
 });
@@ -65,8 +69,8 @@ router.post('/toggle-js', (req, res) => {
    * That boolean is then sent as a query string so that handlebars
    * can do something with it.
    */
-  app.locals.jsEnabled = (req.body['js-enabled'] == true);
-  res.redirect(301, '/?js-enabled=' + app.locals.jsEnabled)
+  app.locals.jsEnabled = (req.body['js-enabled']==true);  
+  res.redirect(301, '/?js-enabled=' + req.body['js-enabled']);
 });
 
 /* handle navigation to nonexistant routes */
