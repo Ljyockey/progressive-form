@@ -35,12 +35,14 @@ $(function() {
   $nameForm.submit(e => {
     e.preventDefault();
 
-    /** Append submitted text to the DOM - this is temporary
-     * to illusttate that JS is on, and will be replaced
-     * with AJAX calls. */
-    var $nameNode = $('<p>', {text: $nameField.val()});
-    $outputSection.append($nameNode);
-    $nameField.val('');
+    var url = $nameForm.prop('action');
+    var formData = $nameForm.serializeArray();
+
+    $.post(url, formData).done(function(data){
+      var $nameNode = $('<p>', {text: data});
+      $outputSection.append($nameNode);
+    });
+
   });
 
 });
