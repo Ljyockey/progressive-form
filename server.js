@@ -44,14 +44,16 @@ router.get('/', (req, res) => {
 
 router.post('/print-name', (req, res) => {
 
-  /** Send user's name as query string just to illustrate 
-   * that routing has happened on the server.
-   */
+  /** Store the submitted name in the app.locals object */
   app.locals.name = req.body.name;
 
+/** If the request came in from AJAX, send the name back directly. */
   if (req.xhr) {
     res.status(200).send(app.locals.name);
   } else {
+   /** If not, we redirect with a query string to show
+   * that routing was done on the server. 
+   */
     res.status(301).redirect('/?name=' + app.locals.name);
   }
 });
@@ -69,7 +71,7 @@ router.post('/toggle-js', (req, res) => {
    * Then we send the 1 or 0 in the query string as a visual indicator that we have
    * done some navigating server-side.
    */
-  app.locals.jsEnabled = (req.body['js-enabled']==true);  
+  app.locals.jsEnabled = (req.body['js-enabled'] == true);  
   res.status(301).redirect('/?js-enabled=' + req.body['js-enabled']);
 });
 
