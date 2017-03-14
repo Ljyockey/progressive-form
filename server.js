@@ -41,9 +41,15 @@ router.post('/print-name', (req, res) => {
 
   /** Send user's name as query string just to illustrate 
    * *that stuff has happened on the server 
+   * TODO: use req.xhr to test if ajax request and handle sending actual data
    */
   app.locals.name = req.body.name;
-  res.redirect(301, '/?name=' + app.locals.name);
+
+  if (req.xhr) {
+    res.status(200).send(app.locals.name);
+  } else {
+    res.redirect(301, '/?name=' + app.locals.name);
+  }
 });
 
 router.post('/toggle-js', (req, res) => {
