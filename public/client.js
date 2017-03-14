@@ -23,13 +23,8 @@ $(function() {
 
   checkStorage();
 
- /** TODO: use $.ajax to actually call to the server 
-  * & handle these forms 
-  */
- $toggleForm.submit(e => {
-    e.preventDefault();
+  $toggleForm.change(function(e){
     populateStorage($('input:checked'));
-    $(this).submit();
   });
 
   $nameForm.submit(e => {
@@ -41,6 +36,7 @@ $(function() {
     $.post(url, formData).done(function(data){
       var $nameNode = $('<p>', {text: data});
       $outputSection.append($nameNode);
+      $nameField.val('');
     });
 
   });
