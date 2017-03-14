@@ -13,19 +13,30 @@ function populateStorage($input) {
  }
 
 $(function() {
+  /** Store some DOM elements in variables.
+   * $ prefix to remind us that these are jQuery objects.
+   */
+  var $toggleForm = $('#toggle-form'),
+      $nameForm = $('#name-form'),
+      $nameField = $('#name-field'),
+      $outputSection = $('#output'),
+
   checkStorage();
 
-  $('#toggle-form').submit(e => {
+ $toggleForm.submit(e => {
+    e.preventDefault();
     populateStorage($('input:checked'));
+    $(this).submit();
   });
 
-  $('#name-form').submit(e => {
+  $nameForm.submit(e => {
     e.preventDefault();
-    var $outputSection = $('#output'),
-        $nameField = $('#name-field'),
-        $nameNode = $('<p>', {text: $nameField.val()})
-
-        $outputSection.append($nameNode);
+    /** Append submitted text to the DOM - temporary.
+     * TODO: use $.ajax to actually call to the server & handle this
+     */
+    var $nameNode = $('<p>', {text: $nameField.val()})
+    $outputSection.append($nameNode);
+    $nameField.val('')
   });
 
 });
