@@ -1,14 +1,14 @@
 'use strict';
 
 const express = require('express');
-const exphbs  = require('express-handlebars');
+const exphbs = require('express-handlebars');
 const bodyParser = require('body-parser');
 
 const app = express();
 
 app.use([
   express.static('public'),
-  bodyParser.json(), 
+  bodyParser.json(),
   bodyParser.urlencoded({extended: false})
 ]);
 
@@ -23,23 +23,23 @@ const router = express.Router();
 /* Serve html */
 
 router.get('/', (req, res) => {
-  
-   /** Set options on Express's app.locals object, which lets us carry data
-    * in the server app. This will be our `database`, for lack of a real one.
 
-    * If the name form was sent, the app.locals.name prop will have that name
-    * and displayed in the view; if not, it will be undefined,
-    * and our template will ignore it.
+  /** Set options on Express's app.locals object, which lets us carry data
+   * in the server app. This will be our `database`, for lack of a real one.
 
-    * If the form for enabling JS was sent, app.locals.jsEnabled 
-    * will be true and script tags will be added to the DOM.
-    */    
+   * If the name form was sent, the app.locals.name prop will have that name
+   * and displayed in the view; if not, it will be undefined,
+   * and our template will ignore it.
 
-   if (!app.locals.jsEnabled && req.query['js-enabled']) {
-     app.locals.jsEnabled = req.query['js-enabled'] == true;
-   }
+   * If the form for enabling JS was sent, app.locals.jsEnabled 
+   * will be true and script tags will be added to the DOM.
+   */
 
-    res.render('home', app.locals); 
+  if (!app.locals.jsEnabled && req.query['js-enabled']) {
+    app.locals.jsEnabled = req.query['js-enabled'] == true;
+  }
+
+  res.render('home', app.locals);
 });
 
 router.post('/print-name', (req, res) => {
@@ -47,13 +47,13 @@ router.post('/print-name', (req, res) => {
   /** Store the submitted name in the app.locals object */
   app.locals.name = req.body.name;
 
-/** If the request came in from AJAX, send the name back directly. */
+  /** If the request came in from AJAX, send the name back directly. */
   if (req.xhr) {
     res.status(200).send(app.locals.name);
   } else {
-   /** If not, we redirect with a query string to show
-   * that routing was done on the server. 
-   */
+    /** If not, we redirect with a query string to show
+     * that routing was done on the server. 
+     */
     res.status(301).redirect('/?name=' + app.locals.name);
   }
 });
@@ -71,58 +71,46 @@ router.post('/toggle-js', (req, res) => {
    * Then we send the 1 or 0 in the query string as a visual indicator that we have
    * done some navigating server-side.
    */
-  app.locals.jsEnabled = (req.body['js-enabled'] == true);  
+  app.locals.jsEnabled = (req.body['js-enabled'] == true);
   res.status(301).redirect('/?js-enabled=' + req.body['js-enabled']);
 });
 
 /* Handle navigation to nonexistant routes */
 
-router.use('*', function(req, res) {
+router.use('*', function (req, res) {
   return res.status(404).json({message: 'Not Found'});
 });
 
-
 app.use('/', router);
-
-
-
-
 
 let server;
 
-
-function runServer(databaseUrl, port=8080) {
-
+function runServer(databaseUrl, port = 8080) {
   return new Promise((resolve, reject) => {
-      server = app.listen(port, () => {
+    server = app.listen(port, () => {
         console.log(`Your app is listening on port ${port}`);
         resolve();
       })
       .on('error', err => {
-
         reject(err);
       });
   });
 }
 
-
 function closeServer() {
-     return new Promise((resolve, reject) => {
-       console.log('Closing server');
-       server.close(err => {
-           if (err) {
-               return reject(err);
-           }
-           resolve();
-       });
-     });
+  return new Promise((resolve, reject) => {
+    console.log('Closing server');
+    server.close(err => {
+      if (err) {
+        return reject(err);
+      }
+      resolve();
+    });
+  });
 }
-
 
 if (require.main === module) {
   runServer().catch(err => console.error(err));
 };
 
 module.exports = {app, runServer, closeServer};
-
-
