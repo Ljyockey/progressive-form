@@ -26,7 +26,7 @@ router.get('/', (req, res) => {
   
    /** Set options on Express's app.locals object, which lets us carry data
     * in the server app. This will be our `database`, for lack of a real one.
-    *
+
     * If the name form was sent, the app.locals.name prop will have that name
     * and displayed in the view; if not, it will be undefined,
     * and our template will ignore it.
@@ -64,10 +64,10 @@ router.post('/toggle-js', (req, res) => {
 
    * The toggle-js radios have values of 1 and 0,
    * which can also be evaluated to true or false, respectively.
-   * 
+
    * Here, we get the 1 or 0 from the req.body and convert it to 
    * its corresponding boolean. That boolean is then set to app.locals.jsEnabled.
-   * 
+
    * Then we send the 1 or 0 in the query string as a visual indicator that we have
    * done some navigating server-side.
    */

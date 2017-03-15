@@ -9,7 +9,6 @@ function populateStorage($input) {
       prefVal = $input.val();
    
    localStorage.setItem(prefName, prefVal);
-
  }
 
 $(function() {
